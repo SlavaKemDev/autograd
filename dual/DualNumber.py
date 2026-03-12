@@ -23,6 +23,9 @@ class DualNumber:
     def __rsub__(self, other):
         return DualNumber(other, 0).__sub__(self)
 
+    def __neg__(self):
+        return DualNumber(-self.real, -self.dual)
+
     def __mul__(self, other):
         if isinstance(other, DualNumber):
             return DualNumber(self.real * other.real, self.real * other.dual + self.dual * other.real)

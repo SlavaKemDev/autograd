@@ -14,6 +14,15 @@ class DualNumber:
     def __radd__(self, other):
         return self.__add__(other)
 
+    def __sub__(self, other):
+        if isinstance(other, DualNumber):
+            return DualNumber(self.real - other.real, self.dual - other.dual)
+        else:
+            return DualNumber(self.real - other, self.dual)
+
+    def __rsub__(self, other):
+        return DualNumber(other, 0).__sub__(self)
+
     def __mul__(self, other):
         if isinstance(other, DualNumber):
             return DualNumber(self.real * other.real, self.real * other.dual + self.dual * other.real)

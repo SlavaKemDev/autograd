@@ -51,6 +51,12 @@ class DualNumber:
         C = power.real if isinstance(power, DualNumber) else power
         D = power.dual if isinstance(power, DualNumber) else 0
 
+        if D == 0:
+            return DualNumber(A ** C, B * (A ** (C - 1)) * C)
+
+        if A <= 0:
+            raise ValueError("Base must be positive when exponent is a dual number with non-zero dual part.")
+
         return DualNumber(
             A ** C,
             D * (A ** C) * math.log(A) + (A ** (C - 1)) * B * C
